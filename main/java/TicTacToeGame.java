@@ -15,6 +15,8 @@ public class TicTacToeGame {
         showBoard(board);
         makePlayerMove(board, playerLetter);
         showBoard(board);
+        makePlayerMove(board, playerLetter);
+        showBoard(board);
     }
 
     public static char[] createBoard()
@@ -53,16 +55,22 @@ public class TicTacToeGame {
             System.out.print("Select index between 1 and 9: ");
             indexChoice = in.nextInt();
             in.nextLine();
-            if(board[indexChoice]=='X' || board[indexChoice]=='O')
-            {
+            if(isFreeIndex(indexChoice, board) == false)
                 System.out.println("Index already filled");
-            }
             else
             {
                 board[indexChoice] = playerLetter;
                 return;
             }
         }while(board[indexChoice]!=' ');
+    }
+
+    private static boolean isFreeIndex(int index, char board[])
+    {
+        if(board[index]=='X' || board[index]=='O')
+            return false;
+        else
+            return true;
     }
     
 }
