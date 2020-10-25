@@ -54,7 +54,7 @@ public class TicTacToeGame {
             System.out.print("Select index between 1 and 9: ");
             indexChoice = in.nextInt();
             in.nextLine();
-            if(isFreeIndex(indexChoice, board) == false)
+            if(isFreeIndex(board, indexChoice) == false)
                 System.out.println("Index already filled");
             else
             {
@@ -64,7 +64,7 @@ public class TicTacToeGame {
         }while(board[indexChoice]!=' ');
     }
 
-    private static boolean isFreeIndex(int index, char board[])
+    private static boolean isFreeIndex(char board[], int index)
     {
         if(board[index]=='X' || board[index]=='O')
             return false;
@@ -80,5 +80,35 @@ public class TicTacToeGame {
         else
             System.out.println("Computer won the toss.");
         return randomNo;
+    }
+
+    private static int gameStatus(char board[], char lastLetterPlayed)
+    {
+        if((board[1]==lastLetterPlayed && board[2]==lastLetterPlayed && board[3]==lastLetterPlayed)
+                || (board[4]==lastLetterPlayed && board[5]==lastLetterPlayed && board[6]==lastLetterPlayed)
+                || (board[7]==lastLetterPlayed && board[8]==lastLetterPlayed && board[9]==lastLetterPlayed)
+                || (board[1]==lastLetterPlayed && board[4]==lastLetterPlayed && board[7]==lastLetterPlayed)
+                || (board[2]==lastLetterPlayed && board[5]==lastLetterPlayed && board[8]==lastLetterPlayed)
+                || (board[3]==lastLetterPlayed && board[6]==lastLetterPlayed && board[9]==lastLetterPlayed)
+                || (board[1]==lastLetterPlayed && board[5]==lastLetterPlayed && board[9]==lastLetterPlayed)
+                || (board[3]==lastLetterPlayed && board[5]==lastLetterPlayed && board[7]==lastLetterPlayed))
+        {
+            if(lastLetterPlayed == playerLetter)
+                System.out.println("User has won the game.");
+            else
+                System.out.println("Computer has won the game.");
+            return -1;
+        }
+        for(int index = 1; index<board.length; index++)
+            if(isFreeIndex(board,index) == true)
+            {
+                if(lastLetterPlayed == playerLetter)
+                    System.out.println("Computer's turn.");
+                else
+                    System.out.println("User's turn.");
+                return 0;
+            }
+        System.out.println("The game has ended with a tie.");
+        return 1;
     }
 }
