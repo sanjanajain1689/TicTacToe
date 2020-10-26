@@ -17,7 +17,8 @@ public class TicTacToeGame {
         showBoard(board);
         int tossWinner = toss();
         board[1] = playerLetter;
-        board[2] = playerLetter;
+        board[8] = playerLetter;
+        board[5] = compLetter;
         makeCompMove(board);
         showBoard(board);
         gameStatus(board, compLetter);
@@ -168,13 +169,12 @@ public class TicTacToeGame {
         else if(board[3]==' ' && board[5]==compLetter && board[7]==compLetter)
             board[3] = compLetter;
         else
-            blockPlayerWin(board);
+        {
+            if(blockPlayerWin(board)=='F')
+                makeCompCornerMove(board);
+        }
     }
 
-    /**
-     * @param board
-     * Make computer move to avoid player win
-     */
     private static char blockPlayerWin(char board[])
     {
         if(board[1]==playerLetter && board[2]==playerLetter && board[3]==' ')
@@ -228,5 +228,21 @@ public class TicTacToeGame {
         else
             return 'F';
         return 'T';
+    }
+
+    private static char makeCompCornerMove(char board[])
+    {
+        if(isFreeIndex(board,1)==true)
+            board[1] = compLetter;
+        else if(isFreeIndex(board,3)==true)
+            board[3] = compLetter;
+        else if(isFreeIndex(board,7)==true)
+            board[7] = compLetter;
+        else if(isFreeIndex(board,9)==true)
+            board[9] = compLetter;
+        else
+            return 'F';
+        return 'T';
+
     }
 }
